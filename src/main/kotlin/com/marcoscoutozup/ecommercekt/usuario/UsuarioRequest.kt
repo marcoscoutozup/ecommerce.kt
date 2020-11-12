@@ -1,5 +1,6 @@
 package com.marcoscoutozup.ecommercekt.usuario
 
+import com.marcoscoutozup.ecommercekt.validator.EmailUnico
 import javax.validation.constraints.Email
 import javax.validation.constraints.Min
 import javax.validation.constraints.NotBlank
@@ -8,6 +9,7 @@ class UsuarioRequest (
 
         @NotBlank
         @Email
+        @EmailUnico
         val email: String,
 
         @NotBlank

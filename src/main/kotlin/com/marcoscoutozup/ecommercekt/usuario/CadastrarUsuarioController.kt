@@ -20,7 +20,7 @@ class CadastrarUsuarioController(val entityManager: EntityManager){
                          uri: UriComponentsBuilder): ResponseEntity<Any> {
 
                                 //2
-        var usuario = request.toUsuario()
+        val usuario = request.toUsuario()
         entityManager.persist(usuario);
         return ResponseEntity
                 .created(uri.path("/usuarios/{id}")

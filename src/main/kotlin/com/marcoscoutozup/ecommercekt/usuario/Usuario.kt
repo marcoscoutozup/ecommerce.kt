@@ -7,11 +7,13 @@ import java.util.*
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.NamedQuery
 import javax.validation.constraints.Email
 import javax.validation.constraints.Min
 import javax.validation.constraints.NotBlank
 
 @Entity
+@NamedQuery(name = "findUsuarioByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email")
 class Usuario {
 
     @Id
