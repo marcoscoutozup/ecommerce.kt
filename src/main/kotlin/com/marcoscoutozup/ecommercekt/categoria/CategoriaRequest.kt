@@ -6,10 +6,17 @@ import java.util.*
 import javax.persistence.EntityManager
 import javax.validation.constraints.NotBlank
 
-class CategoriaRequest (                                    //1
-        @NotBlank @InformacaoUnica(campo = "nome", classe = Categoria::class) val nome: String,
-        @CategoriaExistente val superCategoria: UUID?) {
+class CategoriaRequest {
 
+
+    @NotBlank
+    @InformacaoUnica(campo = "nome", classe = Categoria::class)
+    lateinit var nome: String
+
+    @CategoriaExistente
+    var superCategoria: UUID? = null
+
+                                                    //1
     fun toCategoria(entityManager: EntityManager): Categoria{
 
         var categoria = Categoria(this.nome)

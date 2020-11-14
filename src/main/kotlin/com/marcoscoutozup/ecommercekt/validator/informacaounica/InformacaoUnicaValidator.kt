@@ -3,7 +3,6 @@ package com.marcoscoutozup.ecommercekt.validator.informacaounica
 import javax.persistence.EntityManager
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext
-import kotlin.reflect.KClass
 
 class InformacaoUnicaValidator(val entityManager: EntityManager): ConstraintValidator<InformacaoUnica, String>{
 

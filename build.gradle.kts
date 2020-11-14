@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.3.72"
 	kotlin("plugin.spring") version "1.3.72"
 	kotlin("plugin.jpa") version "1.3.72"
+
 }
 
 group = "com.marcoscoutozup"
@@ -29,6 +30,7 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
+	compile("io.jsonwebtoken:jjwt:0.9.1")
 }
 
 tasks.withType<Test> {

@@ -1,7 +1,5 @@
 package com.marcoscoutozup.ecommercekt.validator.informacaounica
 
-import com.marcoscoutozup.ecommercekt.categoria.Categoria
-import java.lang.reflect.Type
 import javax.validation.Constraint
 import javax.validation.Payload
 import kotlin.annotation.AnnotationRetention.RUNTIME

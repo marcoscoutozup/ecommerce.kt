@@ -6,11 +6,11 @@ import java.time.LocalDateTime
 import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.Email
-import javax.validation.constraints.Min
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.Size
 
 @Entity
-@NamedQuery(name = "findUsuarioByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email")
+@NamedQuery(name = "findUsuarioByEmail", query = "select u from Usuario u where email = :email")
 class Usuario {
 
     @Id
@@ -23,6 +23,7 @@ class Usuario {
     val email: String
 
     @NotBlank
+    @Size(min=6)
     val senha: String
 
     @CreationTimestamp
