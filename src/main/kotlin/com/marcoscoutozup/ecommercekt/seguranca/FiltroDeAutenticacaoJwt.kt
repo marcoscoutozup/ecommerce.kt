@@ -26,17 +26,17 @@ class FiltroDeAutenticacaoJwt(val manager: AuthenticationManager, val jwtUtil: J
         }
     }
 
-    override fun successfulAuthentication(request: HttpServletRequest?, response: HttpServletResponse?, chain: FilterChain?, authResult: Authentication?) {
-        val username = (authResult?.principal as User).username
+    override fun successfulAuthentication(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain, authResult: Authentication) {
+        val username = (authResult.principal as User).username
         val token = this.jwtUtil.gerarToken(username)
-        response!!.status = 200
-        response!!.addHeader("Authorization", token)
+        response.status = 200
+        response.addHeader("Authorization", token)
     }
 
-    override fun unsuccessfulAuthentication(request: HttpServletRequest?, response: HttpServletResponse?, failed: AuthenticationException?) {
-        response!!.status = 401
-        response!!.contentType = "application/json"
-        response!!.characterEncoding = "UTF-8"
-        response!!.writer?.write("{ \"message\":\"${failed?.message}\" }")
+    override fun unsuccessfulAuthentication(request: HttpServletRequest, response: HttpServletResponse, failed: AuthenticationException) {
+        response.status = 401
+        response.contentType = "application/json"
+        response.characterEncoding = "UTF-8"
+        response.writer?.write("{ \"message\":\"${failed?.message}\" }")
     }
 }

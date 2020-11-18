@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
 
 @Entity
+@Table(name = "tb_usuario")
 @NamedQuery(name = "findUsuarioByEmail", query = "select u from Usuario u where email = :email")
 class Usuario {
 
@@ -29,7 +30,7 @@ class Usuario {
     @CreationTimestamp
     val criadoEm: LocalDateTime? = null
 
-    constructor(email: String, senha: String) {
+    constructor(@NotBlank @Email email: String, @NotBlank @Size(min=6) senha: String) {
         this.email = email
         this.senha = criptografarSenha(senha)
     }

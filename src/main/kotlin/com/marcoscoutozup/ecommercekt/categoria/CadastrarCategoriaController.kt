@@ -1,5 +1,7 @@
 package com.marcoscoutozup.ecommercekt.categoria
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -14,14 +16,20 @@ import javax.validation.Valid
 @RequestMapping("/categorias")
 class CadastrarCategoriaController (val entityManager: EntityManager) {
 
+    val log: Logger = LoggerFactory.getLogger(CadastrarCategoriaController::class.java)
+
     @PostMapping
     @Transactional                                      //1
     fun cadastrarCategoria(@RequestBody @Valid request: CategoriaRequest,
                            uri: UriComponentsBuilder): ResponseEntity<Any> {
 
+        log.info("[CADASTRO DE CATEGORIA] Solicitação de criação de categoria")
+
                                     //2
         val categoria = request.toCategoria(entityManager)
         entityManager.persist(categoria)
+
+        log.info("[CADASTRO DE CATEGORIA] Categoria criada: {}", categoria.id)
 
         return ResponseEntity
                 .created(uri.path("/categorias/{id}")
