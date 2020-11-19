@@ -5,8 +5,9 @@ import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.mockito.Mock
 import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
+import org.mockito.MockitoAnnotations.initMocks
 import org.springframework.http.HttpStatus
 import org.springframework.web.util.UriComponentsBuilder
 import java.util.*
@@ -14,16 +15,21 @@ import javax.persistence.EntityManager
 
 class CadastrarUsuarioControllerTests {
 
+    @Mock
     lateinit var entityManager: EntityManager
+
+    @Mock
     lateinit var usuarioRequest: UsuarioRequest
+
+    @Mock
     lateinit var usuario: Usuario
+
+    @Mock
     lateinit var controller: CadastrarUsuarioController
 
     @BeforeEach
     fun setup() {
-        entityManager = mock(EntityManager::class.java)
-        usuarioRequest = mock(UsuarioRequest::class.java)
-        usuario = mock(Usuario::class.java)
+        initMocks(this)
         controller = CadastrarUsuarioController(entityManager)
     }
 

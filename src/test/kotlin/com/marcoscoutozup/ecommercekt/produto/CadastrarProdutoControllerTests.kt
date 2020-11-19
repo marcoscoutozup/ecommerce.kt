@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.mockito.Mock
 import org.mockito.Mockito.*
+import org.mockito.MockitoAnnotations.initMocks
 import org.springframework.http.HttpStatus
 import org.springframework.web.util.UriComponentsBuilder
 import java.util.*
@@ -15,29 +17,37 @@ import javax.persistence.TypedQuery
 
 class CadastrarProdutoControllerTests {
 
+    @Mock
     lateinit var entityManager: EntityManager
+
+    @Mock
     lateinit var produtoRequest: ProdutoRequest
+
+    @Mock
     lateinit var produto: Produto
+
+    @Mock
     lateinit var controller: CadastrarProdutoController
+
+    @Mock
     lateinit var jwtUtils: JwtUtils
+
+    @Mock
     lateinit var usuario: Usuario
-    lateinit var query: TypedQuery<*>
+
+    @Mock
+    lateinit var query: TypedQuery<Usuario>
 
     @BeforeEach
     fun setup() {
-        entityManager = mock(EntityManager::class.java)
-        produtoRequest = mock(ProdutoRequest::class.java)
-        produto = mock(Produto::class.java)
-        jwtUtils = mock(JwtUtils::class.java)
-        usuario = mock(Usuario::class.java)
-        query = mock(TypedQuery::class.java)
+        initMocks(this)
         controller = CadastrarProdutoController(entityManager, jwtUtils)
     }
 
     @Test
     @DisplayName("Não deve cadastrar produto se vendedor não existir")
     fun naoDeveCadastrarProdutoSeVendedorNaoExistir() {
-        `when`(entityManager.createNamedQuery(anyString(), eq(Usuario::class.java))).thenReturn(query as TypedQuery<Usuario>)
+        `when`(entityManager.createNamedQuery(anyString(), eq(Usuario::class.java))).thenReturn(query)
         `when`(query.setParameter(anyString(), any())).thenReturn(query)
         `when`(query.resultList).thenReturn(emptyList())
         `when`(jwtUtils.capturarEmailDoUsuarioLogado(anyString())).thenReturn(String())
@@ -50,7 +60,7 @@ class CadastrarProdutoControllerTests {
     @DisplayName("Deve cadastrar produto")
     fun deveCadastrarUsuario() {
         `when`(produtoRequest.toProduto(usuario, entityManager)).thenReturn(produto)
-        `when`(entityManager.createNamedQuery(anyString(), eq(Usuario::class.java))).thenReturn(query as TypedQuery<Usuario>)
+        `when`(entityManager.createNamedQuery(anyString(), eq(Usuario::class.java))).thenReturn(query)
         `when`(query.setParameter(anyString(), any())).thenReturn(query)
         `when`(query.resultList).thenReturn(listOf(usuario))
         val uuid = UUID.randomUUID()

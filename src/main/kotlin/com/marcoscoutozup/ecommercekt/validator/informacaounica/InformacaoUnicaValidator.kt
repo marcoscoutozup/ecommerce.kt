@@ -9,9 +9,9 @@ class InformacaoUnicaValidator(val entityManager: EntityManager): ConstraintVali
     lateinit var classe: String
     lateinit var campo: String
 
-    override fun initialize(constraintAnnotation: InformacaoUnica?) {
-        this.classe = constraintAnnotation!!.classe.simpleName.toString()
-        this.campo = constraintAnnotation!!.campo
+    override fun initialize(constraintAnnotation: InformacaoUnica) {
+        this.classe = constraintAnnotation.classe.simpleName.toString()
+        this.campo = constraintAnnotation.campo
     }
 
     override fun isValid(valor: String?, context: ConstraintValidatorContext?): Boolean =

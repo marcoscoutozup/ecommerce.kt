@@ -23,7 +23,6 @@ class Categoria {
         this.nome = nome
     }
 
-
     fun associarSuperCategoria(categoria: Categoria){
         this.categoria = categoria
     }

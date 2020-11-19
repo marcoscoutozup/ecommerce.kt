@@ -16,9 +16,9 @@ import javax.servlet.http.HttpServletResponse
 class FiltroDeAutenticacaoJwt(val manager: AuthenticationManager, val jwtUtil: JwtUtils):
         UsernamePasswordAuthenticationFilter() {
 
-    override fun attemptAuthentication(request: HttpServletRequest?, response: HttpServletResponse?): Authentication {
+    override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
         try {
-            val usuarioDTO = ObjectMapper().readValue(request?.inputStream, UsuarioDTO::class.java)
+            val usuarioDTO = ObjectMapper().readValue(request.inputStream, UsuarioDTO::class.java)
             val authToken = UsernamePasswordAuthenticationToken(usuarioDTO.email, usuarioDTO.senha)
             return this.manager.authenticate(authToken)
         } catch (e: IOException) {
@@ -37,6 +37,6 @@ class FiltroDeAutenticacaoJwt(val manager: AuthenticationManager, val jwtUtil: J
         response.status = 401
         response.contentType = "application/json"
         response.characterEncoding = "UTF-8"
-        response.writer?.write("{ \"message\":\"${failed?.message}\" }")
+        response.writer.write("{ \"message\":\"${failed.message}\" }")
     }
 }

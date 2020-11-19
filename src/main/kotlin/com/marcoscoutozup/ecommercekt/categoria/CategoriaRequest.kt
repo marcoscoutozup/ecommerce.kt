@@ -21,7 +21,7 @@ class CategoriaRequest {
 
         var categoria = Categoria(this.nome)
 
-        if(this.superCategoria == null ){
+        if(this.superCategoria == null){
             return categoria
         }
 
